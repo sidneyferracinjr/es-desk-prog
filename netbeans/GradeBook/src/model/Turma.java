@@ -15,28 +15,23 @@ import java.util.List;
 public class Turma implements Serializable {
     private static final long serialVersionUID = 1L;
     
+    private int contaTurma = 1;
     private int codigo;
     private String nome;
-    private List<Aluno> alunos;
+    private String alunos;
 
-    public Turma(int codigo, String nome, List<Aluno> alunos) {
+    public Turma(int codigo, String nome, String alunos) {
         this.codigo = codigo;
         this.nome = nome;
         this.alunos = alunos;
     }
     
-    public Turma(int codigo, String nome) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.alunos = new ArrayList<>();
+    public Turma() {
+        codigo = contaTurma;
+        contaTurma++;
     }
     
-    public void adicionarAluno(Aluno aluno) {
-        alunos.add(aluno);
-        aluno.setTurma(this);
-    }
-    
-    public List<Aluno> listarAlunos() {
+    public String listarAlunos() {
         return alunos;
     }
 
@@ -61,11 +56,11 @@ public class Turma implements Serializable {
         this.nome = nome;
     }
 
-    public List<Aluno> getAlunos() {
+    public String getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(String alunos) {
         this.alunos = alunos;
     }
     

@@ -15,60 +15,51 @@ import java.util.Map;
 public class Boletim implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    private Aluno aluno;
-    private Map<String, Double> notas;
-    private double media;
+    private static int contaAluno = 1;
+    private int idBoletim;
+    private String aluno;
+    private float media;
 
-    public Boletim(Aluno aluno, Map<String, Double> notas, double media) {
+    public Boletim(String aluno, float media) {
         this.aluno = aluno;
-        this.notas = notas;
         this.media = media;
     }
     
-    public Boletim(Aluno aluno) {
+    public Boletim(String aluno) {
         this.aluno = aluno;
-        this.notas = new HashMap<>();
     }
     
-    public void adicionarNota(String disciplina, double nota) {
-        notas.put(disciplina, nota);
-        calcularMedia();
-    }
-    
-    public void calcularMedia() {
-        double soma = 0;
-        for (double nota : notas.values()) {
-            soma += nota;
-        }
-        this.media = notas.isEmpty() ? 0 : soma / notas.size();
+    public Boletim() {
+        idBoletim = contaAluno;
+        contaAluno++;
     }
 
     @Override
     public String toString() {
-        return "Boletim{" + "aluno=" + aluno + ", notas=" + notas + ", media=" + media + '}';
+        return "Boletim{" + "aluno=" + aluno + ", media=" + media + '}';
     }
 
-    public Aluno getAluno() {
+    public int getIdBoletim() {
+        return idBoletim;
+    }
+
+    public void setIdBoletim(int idBoletim) {
+        this.idBoletim = idBoletim;
+    }  
+  
+    public String getAluno() {
         return aluno;
     }
 
-    public void setAluno(Aluno aluno) {
+    public void setAluno(String aluno) {
         this.aluno = aluno;
-    }
-
-    public Map<String, Double> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(Map<String, Double> notas) {
-        this.notas = notas;
     }
 
     public double getMedia() {
         return media;
     }
 
-    public void setMedia(double media) {
+    public void setMedia(float media) {
         this.media = media;
     }
     

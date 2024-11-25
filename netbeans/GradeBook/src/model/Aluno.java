@@ -13,11 +13,12 @@ import java.io.Serializable;
 public class Aluno implements Serializable {
     private static final long serialVersionUID = 1L;
     
+    private static int contaAluno = 1;
     private int matricula;
     private String nome;
-    private Turma turma;
+    private String turma;
 
-    public Aluno(int matricula, String nome, Turma turma) {
+    public Aluno(int matricula, String nome, String turma) {
         this.matricula = matricula;
         this.nome = nome;
         this.turma = turma;
@@ -27,9 +28,10 @@ public class Aluno implements Serializable {
         this.matricula = matricula;
         this.nome = nome;
     }
-    
-    public Boletim obterBoletim() {
-        return new Boletim(this);
+
+    public Aluno() {
+        matricula = contaAluno;
+        contaAluno++;
     }
 
     @Override
@@ -53,11 +55,11 @@ public class Aluno implements Serializable {
         this.nome = nome;
     }
 
-    public Turma getTurma() {
+    public String getTurma() {
         return turma;
     }
 
-    public void setTurma(Turma turma) {
+    public void setTurma(String turma) {
         this.turma = turma;
     }
 

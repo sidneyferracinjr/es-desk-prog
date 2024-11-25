@@ -6,6 +6,15 @@ package view;
 
 import controller.Conversor5;
 import javax.swing.JOptionPane;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.GroupLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -30,73 +39,73 @@ public class JConversor5 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldCelsius = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabelC2F = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Celsius");
-
-        jButton1.setText("C2F");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-
-        jButton2.setText("C2K");
+        
+        JTextArea textArea = new JTextArea();
+        
+        JButton btnFahrenheit = new JButton("Fahrenheit");
+        
+        JButton btnKelvin = new JButton("Kelvin");
+        
+        JLabel lblResultado = new JLabel("Resultado:");
+        
+        JLabel lblCelsius = new JLabel("...");
+        
+        JLabel lblFahrenheit = new JLabel("...");
+        
+        JLabel lblKelvin = new JLabel("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCelsius, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelC2F, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblResultado, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblCelsius, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblFahrenheit, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblKelvin, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnCelsius)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnFahrenheit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnKelvin, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(61))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldCelsius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabelC2F, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(206, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+        			.addGap(32)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(textArea)
+        				.addComponent(btnCelsius)
+        				.addComponent(btnFahrenheit)
+        				.addComponent(btnKelvin))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblResultado)
+        				.addComponent(lblCelsius)
+        				.addComponent(lblFahrenheit)
+        				.addComponent(lblKelvin))
+        			.addGap(220))
         );
+        getContentPane().setLayout(layout);
 
         setSize(new java.awt.Dimension(410, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        double celsius = Double.valueOf(jTextFieldCelsius.getText());
-        jLabelC2F.setText(conversor.Celsius2FahrenheitS(celsius));
-        
-       // JOptionPane.showMessageDialog(null, 
-       //         "O Valor da temperatura em Celsius "+
-       //         celsius+" em Fahrenheit é: "+f);
-    }//GEN-LAST:event_jButton1MouseClicked
-
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -128,12 +137,4 @@ public class JConversor5 extends javax.swing.JFrame {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelC2F;
-    private javax.swing.JTextField jTextFieldCelsius;
-    // End of variables declaration//GEN-END:variables
 }

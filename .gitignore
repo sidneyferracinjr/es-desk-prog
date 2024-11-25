@@ -36,3 +36,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+/netbeans/SwingApplication/nbproject/private/
+/netbeans/SwingApplication/build/
+/netbeans/JavaApplication2/nbproject/private/
+/netbeans/JavaApplication2/build/
+/netbeans/GradeBook/nbproject/private/
