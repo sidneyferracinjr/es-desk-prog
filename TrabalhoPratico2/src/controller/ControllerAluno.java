@@ -11,7 +11,7 @@ import model.Aluno;
  *
  * @author sidneyferracinjr
  */
-public class ControllerArquivoBinarioAluno extends ControllerArquivoBinario{
+public class ControllerAluno extends ControllerBinario{
     
     private Aluno aluno = null;
 
@@ -56,5 +56,9 @@ public class ControllerArquivoBinarioAluno extends ControllerArquivoBinario{
             System.err.println(e.getMessage() + "Erro ao escrever arquivo binário.");
             return false;
         }
+    }
+    
+    public boolean atualizarAluno() {
+        
     }
 }

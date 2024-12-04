@@ -32,10 +32,9 @@ public abstract class ControllerArquivo {
     public void setArquivo(String textoBotao) {
         arquivo = null;
         String dirInicial = System.getProperty("user.dir");
-        JFileChooser chooser = new JFileChooser(dirInicial);
-        if (chooser.showDialog(null, textoBotao) == JFileChooser.APPROVE_OPTION) {
-            arquivo = chooser.getSelectedFile();
+        JFileChooser fc = new JFileChooser(dirInicial);
+        if (fc.showDialog(null, textoBotao) == JFileChooser.APPROVE_OPTION) {
+            arquivo = fc.getSelectedFile();
         }     
     }
-    
 }

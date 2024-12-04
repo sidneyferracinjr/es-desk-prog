@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.ControllerArquivoBinarioAluno;
+import controller.ControllerAluno;
 import javax.swing.JOptionPane;
 import model.Aluno;
 
@@ -14,7 +14,7 @@ import model.Aluno;
  */
 public class JAluno extends javax.swing.JFrame {
 
-    ControllerArquivoBinarioAluno controllerAluno = new ControllerArquivoBinarioAluno();
+    ControllerAluno controllerAluno = new ControllerAluno();
     int indice = 0;
     
     /**
@@ -413,6 +413,9 @@ public class JAluno extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

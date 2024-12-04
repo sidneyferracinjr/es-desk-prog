@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author sidneyferracinjr
  */
-public class ControllerArquivoBinario extends ControllerArquivo{
+public class ControllerBinario extends ControllerArquivo{
     
     private ObjectInputStream leitor = null;
     private ObjectOutputStream escritor = null;
@@ -32,7 +32,7 @@ public class ControllerArquivoBinario extends ControllerArquivo{
         } catch (IOException e) {
             System.err.println(e.getMessage() + "Erro ao ler arquivo binário.");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ControllerArquivoBinario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControllerBinario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return leitor;
     }
