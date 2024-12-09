@@ -4,23 +4,24 @@
  */
 package view;
 
-import controller.ControllerArquivoTextoBoletim;
-import javax.swing.JOptionPane;
 import model.Boletim;
+import controller.BoletimController;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author sidneyferracinjr
  */
-public class JBoletim extends javax.swing.JFrame {
+public class BoletimView extends javax.swing.JFrame {
 
-    ControllerArquivoTextoBoletim controllerBoletim = new ControllerArquivoTextoBoletim();
+    BoletimController controllerBoletim = new BoletimController();
     int indice = 0;
     
     /**
      * Creates new form JBoletim
      */
-    public JBoletim() {
+    public BoletimView() {
         initComponents();
     }
 
@@ -53,6 +54,7 @@ public class JBoletim extends javax.swing.JFrame {
         miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Boletim");
 
         jLabel1.setText("Média");
 
@@ -330,21 +332,23 @@ public class JBoletim extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JBoletim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoletimView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JBoletim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoletimView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JBoletim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoletimView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JBoletim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoletimView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JBoletim().setVisible(true);
+                new BoletimView().setVisible(true);
             }
         });
     }

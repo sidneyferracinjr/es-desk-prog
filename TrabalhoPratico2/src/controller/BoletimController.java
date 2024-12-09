@@ -8,6 +8,6 @@ package controller;
  *
  * @author sidneyferracinjr
  */
-public class ControllerBoletim {
+public class BoletimController {
     
 }

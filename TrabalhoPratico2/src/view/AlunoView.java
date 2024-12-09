@@ -4,23 +4,38 @@
  */
 package view;
 
-import controller.ControllerArquivoTextoTurma;
 import javax.swing.JOptionPane;
-import model.Turma;
+import java.util.Vector;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import config.Config;
+import model.Aluno;
+import controller.AlunoController;
+import java.io.IOException;
 
 /**
  *
  * @author sidneyferracinjr
  */
-public class JTurma extends javax.swing.JFrame {
+public class AlunoView extends javax.swing.JFrame {
 
-    ControllerArquivoTextoTurma controllerTurma = new ControllerArquivoTextoTurma();
-    int indice = 0;
+    AlunoController alunoController = new AlunoController();
+    private String filePath = "";
+    private int indice = 0;
+    
     /**
-     * Creates new form JTurma
+     * Creates new form JAluno
      */
-    public JTurma() {
+    public AlunoView() {
         initComponents();
+    }
+    
+    public AlunoView(String filePath) {
+        initComponents();
+        if (!filePath.isBlank()) {
+            this.filePath = filePath;
+        }
     }
 
     /**
@@ -32,9 +47,8 @@ public class JTurma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfAlunos = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
-        tfCodigo = new javax.swing.JTextField();
+        tfTurma = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -45,19 +59,25 @@ public class JTurma extends javax.swing.JFrame {
         btnProximo = new javax.swing.JButton();
         btnLimparCampos = new javax.swing.JButton();
         btnLer = new javax.swing.JButton();
+        tfMatricula = new javax.swing.JSpinner();
+        spAlunos = new javax.swing.JScrollPane();
+        tblAlunos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        miAbir = new javax.swing.JMenuItem();
+        miAbrir = new javax.swing.JMenuItem();
         miSalvar = new javax.swing.JMenuItem();
+        miSalvarComo = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Aluno");
 
-        jLabel1.setText("Alunos");
+        jLabel1.setText("Matrícula");
 
         jLabel2.setText("Nome");
 
-        jLabel3.setText("Codigo");
+        jLabel3.setText("Turma");
 
         btnCriar.setText("Criar");
         btnCriar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,23 +128,61 @@ public class JTurma extends javax.swing.JFrame {
             }
         });
 
+        tblAlunos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Indice", "Nome", "Turma", "Matricula"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        spAlunos.setViewportView(tblAlunos);
+        if (tblAlunos.getColumnModel().getColumnCount() > 0) {
+            tblAlunos.getColumnModel().getColumn(0).setResizable(false);
+            tblAlunos.getColumnModel().getColumn(1).setResizable(false);
+            tblAlunos.getColumnModel().getColumn(2).setResizable(false);
+            tblAlunos.getColumnModel().getColumn(3).setResizable(false);
+        }
+
         jMenu1.setText("Arquivo");
 
-        miAbir.setText("Abrir");
-        miAbir.addActionListener(new java.awt.event.ActionListener() {
+        miAbrir.setText("Abrir");
+        miAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAbirActionPerformed(evt);
+                miAbrirActionPerformed(evt);
             }
         });
-        jMenu1.add(miAbir);
+        jMenu1.add(miAbrir);
 
         miSalvar.setText("Salvar");
-        miSalvar.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.add(miSalvar);
+
+        miSalvarComo.setText("Salvar Como...");
+        miSalvarComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miSalvarActionPerformed(evt);
+                miSalvarComoActionPerformed(evt);
             }
         });
-        jMenu1.add(miSalvar);
+        jMenu1.add(miSalvarComo);
+        jMenu1.add(jSeparator1);
 
         miSair.setText("Sair");
         miSair.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +203,7 @@ public class JTurma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,29 +213,27 @@ public class JTurma extends javax.swing.JFrame {
                                 .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnLer, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(3, 3, 3))
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnLimparCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLimparCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                .addComponent(tfTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)
-                                        .addGap(20, 20, 20)
-                                        .addComponent(tfAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tfNome))))
-                        .addContainerGap())))
+                                .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +245,9 @@ public class JTurma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(tfTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLimparCampos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,29 +260,13 @@ public class JTurma extends javax.swing.JFrame {
                     .addComponent(btnAtualizar)
                     .addComponent(btnLer)
                     .addComponent(btnExcluir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void miAbirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbirActionPerformed
-        try {
-            abrirArquivo();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_miAbirActionPerformed
-
-    private void miSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalvarActionPerformed
-        try {
-            salvarArquivo();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_miSalvarActionPerformed
-
-    private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miSairActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         limparCampos();
@@ -233,80 +274,169 @@ public class JTurma extends javax.swing.JFrame {
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         try {
-            turmaAnterior();
+            this.indice = --indice;
+            preencherCampos();
         } catch (Exception e) {
+            
         }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
         try {
-            proximaTurma();
+            this.indice = indice++;
+            preencherCampos();
         } catch (Exception e) {
+            
         }
     }//GEN-LAST:event_btnProximoActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         try {
-            criarTurma();
+            criarAluno();
+            tabularDados();
+            preencherCampos();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira uma matrícula válida.", 
+                                          "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao adicionar o aluno: " 
+                                          + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         try {
-            atualizarTurma();
+            atualizarAluno();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um número válido para a matrícula.", 
+                                          "Erro de Formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado: " + e.getMessage(), 
+                                          "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnLerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLerActionPerformed
         try {
-            lerTurma();
+            lerAluno();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira uma matrícula válida.", 
+                                          "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao adicionar o aluno: " 
+                                          + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLerActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            excluirTurma();
+            excluirAluno();
         } catch (Exception e) {
+            
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void miSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalvarComoActionPerformed
+        salvarComo();
+    }//GEN-LAST:event_miSalvarComoActionPerformed
+
+    private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_miSairActionPerformed
+
+    private void miAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirActionPerformed
+        abrirArquivo();
+    }//GEN-LAST:event_miAbrirActionPerformed
+
     public void abrirArquivo() {
+        alunoController.abrirArquivo();
+        this.indice = 0;
         
+        preencherCampos();
+        tabularDados();
     }
     
-    public void salvarArquivo() {
-        
+    public void salvarArquivo() throws IOException {
+        alunoController.salvarArquivo();
+    }
+    
+    public void salvarComo() {
+        alunoController.salvarArquivoComo();
+    }
+    
+    public void preencherCampos() {
+        Aluno aluno = alunoController.getAlunos().get(indice);
+        tfNome.setText(aluno.getNome());
+        tfTurma.setText(aluno.getTurma());
+        tfMatricula.setValue(aluno.getMatricula());
+        tfNome.requestFocus();
     }
     
     public void limparCampos() {
-        
+        tfNome.setText("");
+        tfTurma.setText("");
+        tfMatricula.setValue(0);
+        tfNome.requestFocus();
+
     }
     
-    public void turmaAnterior() {
-        
+    public void criarAluno() {
+        Aluno aluno = new Aluno(tfNome.getText(), 
+                                tfTurma.getText(), 
+                                Integer.parseInt(tfMatricula.getValue().toString())
+        );
+        alunoController.criarAluno(aluno);
     }
     
-    public void proximaTurma() {
-        
+    public void atualizarAluno() {
+        alunoController.atualizarAluno(Integer.valueOf(tfMatricula.getValue().toString()));
     }
     
-    public void criarTurma() {
-        
+    public void lerAluno() {
+        alunoController.lerAluno(Integer.valueOf(tfMatricula.getValue().toString()));
     }
     
-    public void atualizarTurma() {
-        
+    public void excluirAluno() {
+        alunoController.excluirAluno(Integer.valueOf(tfMatricula.getValue().toString()));
     }
     
-    public void lerTurma() {
+    private void tabularDados() {
+        final Vector linhas = new Vector();
+        final Vector colunas = new Vector();
+        int aux = 0;
         
+        colunas.addElement("Índice");
+        colunas.addElement("Nome");
+        colunas.addElement("Turma");
+        colunas.addElement("Matrícula");
+        
+        while (aux <= alunoController.getAlunos().size()) {
+            Vector linha = new Vector();
+            Aluno aluno = alunoController.getAlunos().get(aux);
+            linha.addElement(aux);
+            linha.addElement(aluno.getNome());
+            linha.addElement(aluno.getTurma());
+            linha.addElement(aluno.getMatricula());
+            linhas.add(linha);
+        }
+        
+        exibirTabela(linhas, colunas);
     }
     
-    public void excluirTurma() {
+    private void exibirTabela(Vector linhas, Vector colunas) {        
+        tblAlunos = new JTable(linhas, colunas);
+        spAlunos = new JScrollPane(tblAlunos);
         
+        if (tblAlunos != null) {
+            remove(tblAlunos);
+            remove(spAlunos);
+        }
+        
+        add(spAlunos);
+        spAlunos.setBounds(spAlunos.getBounds());
+        validate();
+        
+        this.repaint();
     }
     
     /**
@@ -326,21 +456,27 @@ public class JTurma extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlunoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlunoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlunoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlunoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JTurma().setVisible(true);
+                new AlunoView().setVisible(true);
             }
         });
     }
@@ -358,11 +494,15 @@ public class JTurma extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem miAbir;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem miAbrir;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSalvar;
-    private javax.swing.JTextField tfAlunos;
-    private javax.swing.JTextField tfCodigo;
+    private javax.swing.JMenuItem miSalvarComo;
+    private javax.swing.JScrollPane spAlunos;
+    private javax.swing.JTable tblAlunos;
+    private javax.swing.JSpinner tfMatricula;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfTurma;
     // End of variables declaration//GEN-END:variables
 }

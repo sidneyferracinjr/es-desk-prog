@@ -13,20 +13,21 @@ import java.io.Serializable;
 public class Aluno implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    private static int contaAluno = 1;
-    private int matricula;
     private String nome;
     private String turma;
+    private int matricula;
+    
+    private static int contaAluno = 1;
 
-    public Aluno(int matricula, String nome, String turma) {
-        this.matricula = matricula;
+    public Aluno(String nome, String turma, int matricula) {
         this.nome = nome;
         this.turma = turma;
+        this.matricula = matricula;
     }
     
-    public Aluno(int matricula, String nome) {
-        this.matricula = matricula;
+    public Aluno(String nome, int matricula) {
         this.nome = nome;
+        this.matricula = matricula;
     }
 
     public Aluno() {
@@ -36,15 +37,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "Aluno{" + "matricula=" + matricula + ", nome=" + nome + ", turma=" + turma + '}';
-    }
-
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
+        return "Aluno{" + "nome=" + nome + ", turma=" + turma + ", matricula=" + matricula + '}';
     }
 
     public String getNome() {
@@ -54,13 +47,21 @@ public class Aluno implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public String getTurma() {
         return turma;
     }
 
     public void setTurma(String turma) {
         this.turma = turma;
+    }
+    
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
 }

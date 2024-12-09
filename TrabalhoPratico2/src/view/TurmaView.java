@@ -4,23 +4,24 @@
  */
 package view;
 
-import controller.ControllerAluno;
+import model.Turma;
+import controller.TurmaController;
 import javax.swing.JOptionPane;
-import model.Aluno;
+
 
 /**
  *
  * @author sidneyferracinjr
  */
-public class JAluno extends javax.swing.JFrame {
+public class TurmaView extends javax.swing.JFrame {
 
-    ControllerAluno controllerAluno = new ControllerAluno();
+    TurmaController controllerTurma = new TurmaController();
     int indice = 0;
     
     /**
-     * Creates new form JAluno
+     * Creates new form JTurma
      */
-    public JAluno() {
+    public TurmaView() {
         initComponents();
     }
 
@@ -33,9 +34,9 @@ public class JAluno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfMatricula = new javax.swing.JTextField();
+        tfAlunos = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
-        tfTurma = new javax.swing.JTextField();
+        tfCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -53,12 +54,13 @@ public class JAluno extends javax.swing.JFrame {
         miSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Turma");
 
-        jLabel1.setText("Matrícula");
+        jLabel1.setText("Alunos");
 
         jLabel2.setText("Nome");
 
-        jLabel3.setText("Turma");
+        jLabel3.setText("Codigo");
 
         btnCriar.setText("Criar");
         btnCriar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,24 +149,23 @@ public class JAluno extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLimparCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLer, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(3, 3, 3))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnLer, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnLimparCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -172,15 +173,13 @@ public class JAluno extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tfTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 3, Short.MAX_VALUE))))
+                                        .addComponent(tfAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfNome))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,8 +191,8 @@ public class JAluno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tfTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLimparCampos)
@@ -216,12 +215,7 @@ public class JAluno extends javax.swing.JFrame {
     private void miAbirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbirActionPerformed
         try {
             abrirArquivo();
-        } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Índice inválido. Não foi possível navegar para o aluno.", 
-                                          "Erro de Navegação", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado: " + e.getMessage(), 
-                                          "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_miAbirActionPerformed
 
@@ -229,14 +223,11 @@ public class JAluno extends javax.swing.JFrame {
         try {
             salvarArquivo();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao salvar o arquivo: " 
-                                          + e.getMessage(), "Erro", 
-                                          JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_miSalvarActionPerformed
 
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
-        System.exit(0);
+        // TODO add your handling code here:
     }//GEN-LAST:event_miSairActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
@@ -245,147 +236,80 @@ public class JAluno extends javax.swing.JFrame {
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         try {
-            Navega(--indice);
+            turmaAnterior();
         } catch (Exception e) {
-            
         }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
         try {
-            Navega(++indice);
+            proximaTurma();
         } catch (Exception e) {
-            
         }
     }//GEN-LAST:event_btnProximoActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         try {
-            criarAluno();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira uma matrícula válida.", 
-                                          "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            criarTurma();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao adicionar o aluno: " 
-                                          + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         try {
-            atualizarAluno();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira um número válido para a matrícula.", 
-                                          "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+            atualizarTurma();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado: " + e.getMessage(), 
-                                          "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnLerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLerActionPerformed
         try {
-            lerAluno();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira uma matrícula válida.", 
-                                          "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            lerTurma();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao adicionar o aluno: " 
-                                          + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLerActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            excluirAluno();
+            excluirTurma();
         } catch (Exception e) {
-            
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     public void abrirArquivo() {
-        controllerAluno.setArquivo("Abrir");
-        controllerAluno.lerAluno();
-        indice = 0;
-        Navega(indice);
-    }
-    
-    public void salvarArquivo() {
-            controllerAluno.setArquivo("salvar");
-            controllerAluno.escreverAluno(true);
-            JOptionPane.showMessageDialog(null, "Aluno adicionado com sucesso!", 
-                                          "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-    }
-    
-    public void limparCampos() {
-        tfNome.setText("");
-        tfMatricula.setText("");
-        tfTurma.setText("");
-    }
-    
-    public void criarAluno() {
-        Aluno aluno = new Aluno();
-        aluno.setNome(tfNome.getText());
-        aluno.setMatricula(Integer.parseInt(tfMatricula.getText()));
-        aluno.setTurma(tfTurma.getText());
-        controllerAluno.getAlunos().add(aluno);
-
-        JOptionPane.showMessageDialog(null, "Aluno adicionado com sucesso!", 
-                                      "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-        tfNome.setText("");
-        tfMatricula.setText("");
-        tfTurma.setText("");
-    }
-    
-    public void atualizarAluno() {
-        String nome = tfNome.getText();
-        int matricula = Integer.parseInt(tfMatricula.getText());
-        String turma = tfTurma.getText();
-
-        boolean alterado = controllerAluno.alterarAluno(matricula, nome, matricula, turma);
-
-        if (alterado) {
-            JOptionPane.showMessageDialog(null, "Aluno alterado com sucesso!", 
-                                          "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Aluno com matrícula " + matricula + " não encontrado.", 
-                                          "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    public void lerAluno() {
-            Aluno aluno = new Aluno();
-            aluno.setNome(tfNome.getText());
-            aluno.setMatricula(Integer.parseInt(tfMatricula.getText()));
-            aluno.setTurma(tfTurma.getText());
-            controllerAluno.getAlunos().add(aluno);
-
-            JOptionPane.showMessageDialog(null, "Aluno adicionado com sucesso!", 
-                                          "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-            tfNome.setText("");
-            tfMatricula.setText("");
-            tfTurma.setText("");
-    }
-    
-    public void excluirAluno() {
         
     }
     
-    public void Navega(int indice){
-        try {
-            Aluno aluno = controllerAluno.getAlunos().get(indice);
-            tfNome.setText(aluno.getNome());
-            tfMatricula.setText(Integer.toString(aluno.getMatricula()));
-            tfTurma.setText(aluno.getTurma());
-        } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Índice fora do intervalo. Não há aluno nesse índice.", 
-                                          "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado: " + e.getMessage(), 
-                                          "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+    public void salvarArquivo() {
+        
+    }
+    
+    public void limparCampos() {
+        
+    }
+    
+    public void turmaAnterior() {
+        
+    }
+    
+    public void proximaTurma() {
+        
+    }
+    
+    public void criarTurma() {
+        
+    }
+    
+    public void atualizarTurma() {
+        
+    }
+    
+    public void lerTurma() {
+        
+    }
+    
+    public void excluirTurma() {
+        
     }
     
     /**
@@ -405,13 +329,13 @@ public class JAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -421,7 +345,7 @@ public class JAluno extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JAluno().setVisible(true);
+                new TurmaView().setVisible(true);
             }
         });
     }
@@ -442,8 +366,8 @@ public class JAluno extends javax.swing.JFrame {
     private javax.swing.JMenuItem miAbir;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSalvar;
-    private javax.swing.JTextField tfMatricula;
+    private javax.swing.JTextField tfAlunos;
+    private javax.swing.JTextField tfCodigo;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfTurma;
     // End of variables declaration//GEN-END:variables
 }
