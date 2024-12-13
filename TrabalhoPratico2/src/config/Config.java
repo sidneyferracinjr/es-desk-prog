@@ -1,39 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.Config to edit this template
- */
 package config;
 
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- *
- * @author sidneyferracinjr
- */
 public class Config {
-    private static Properties properties;
-    private static Config config;
     
+    private static Config instance;
+    private Properties properties;
+
     private Config() {
-        try {
-            if (properties == null) {
-                properties = new Properties();
-                InputStream inputStream = this.getClass().getResourceAsStream("config.properties");
+        properties = new Properties();
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            if (inputStream != null) {
                 properties.load(inputStream);
+            } else {
+                throw new IllegalArgumentException("Arquivo config.properties nao encontrado.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro ao carregar config.properties", e);
         }
     }
-    
-    public static Config getInstance() {
-        if (config == null) {
-            config = new Config();
+
+    public static synchronized Config getInstance() {
+        if (instance == null) {
+            instance = new Config();
         }
-        return config;
+        return instance;
     }
-    
+
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
